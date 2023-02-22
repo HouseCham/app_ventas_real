@@ -4,6 +4,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Response } from '../models/response';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
+import { Login } from '../models/login';
+
+import { FormGroup, FormControl } from '@angular/forms';
 
 const httpOption = {
   headers: new HttpHeaders({
@@ -26,12 +29,13 @@ export class ApiAuthService {
   public get userData(): User{
     return this.usuarioSubject.value;
   }
-  login(email: string, password: string): Observable<Response> {
+  login(login: Login): Observable<Response> {
     let nombre:string = '';
     return this._http
-      .post<Response>(this.url, { nombre, email, password }, httpOption)
+      .post<Response>(this.url, { nombre, login }, httpOption)
       .pipe(
         map((result) => {
+          console.log(login);
           if (result.exito === 1) {
             const user: User = result.data;
             localStorage.setItem('userJWT', JSON.stringify(user));

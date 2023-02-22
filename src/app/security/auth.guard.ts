@@ -13,6 +13,7 @@ export class AuthGuard implements CanActivate{
     canActivate(route: ActivatedRouteSnapshot): boolean{
         const user = this.apiAuthService.userData;
         if (user && Object.keys(user).length != 0){
+            console.log(user);
             return true;
         }
         this.route.navigate(['/login']);
