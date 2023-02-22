@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiclienteService } from 'src/app/services/apicliente.service';
-import { Response } from 'src/app/models/response';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Cliente } from 'src/app/models/cliente';
 import { DialogDeleteComponent } from 'src/app/common/dialog-delete/dialog-delete.component';
-import { DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
