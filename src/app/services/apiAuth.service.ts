@@ -20,19 +20,27 @@ const httpOption = {
 export class ApiAuthService {
   url: string = 'https://localhost:7127/api/User/login';
   private usuarioSubject!: BehaviorSubject<any>;
+  public user!: Observable<User>;
+
   constructor(private _http: HttpClient) {
     this.usuarioSubject = new BehaviorSubject<User>(
-        JSON.parse(localStorage.getItem('userJWT') || '{}')
+      JSON.parse(localStorage.getItem('userJWT') || '{}')
     );
+    this.user = this.usuarioSubject.asObservable();
   }
 
-  public get userData(): User{
+  public get userData(): User {
     return this.usuarioSubject.value;
   }
-  login(login: Login): Observable<Response> {
-    let nombre:string = '';
+
+  public login(login: Login): Observable<Response> {
+
+    let nombre: string = '';
+    let email: string = login.email;
+    let password: string = login.password;
+
     return this._http
-      .post<Response>(this.url, { nombre, login }, httpOption)
+      .post<Response>(this.url, { nombre, email, password }, httpOption)
       .pipe(
         map((result) => {
           console.log(login);
@@ -45,7 +53,8 @@ export class ApiAuthService {
         })
       );
   }
-  logout() {
+
+  public logout() {
     localStorage.removeItem('userJWT');
     this.usuarioSubject.next(null);
   }

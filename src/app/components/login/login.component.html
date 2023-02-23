@@ -19,6 +19,9 @@
                 </small> 
             </p>
             <div>
+                <p id="errorLogin">{{ errorLogin }}</p>
+            </div>
+            <div>
                 <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary">Login</button>
             </div>
         </form>
